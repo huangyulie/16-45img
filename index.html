@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .main{
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div><img src="./img/1.webp" alt=""></div>
+        <div><img src="./img/2.webp" alt=""></div>
+        <div><img src="./img/3.webp" alt=""></div>
+        <div><img src="./img/4.webp" alt=""></div>
+        <div><img src="./img/5.webp" alt=""></div>
+        <div><img src="./img/6.webp" alt=""></div>
+        <div><img src="./img/7.webp" alt=""></div>
+        <div><img src="./img/5.webp" alt=""></div>
+        <div><img src="./img/6.webp" alt=""></div>
+        <div><img src="./img/7.webp" alt=""></div>
+        <div><img src="./img/5.webp" alt=""></div>
+        <div><img src="./img/6.webp" alt=""></div>
+        <div><img src="./img/7.webp" alt=""></div>
+        <div><img src="./img/5.webp" alt=""></div>
+        <div><img src="./img/1.webp" alt=""></div>
+        <div><img src="./img/2.webp" alt=""></div>
+        <div><img src="./img/3.webp" alt=""></div>
+        <div><img src="./img/4.webp" alt=""></div>
+        <div><img src="./img/6.webp" alt=""></div>
+
+    </div>
+</body>
+
+<script>
+    const imgs = document.getElementsByTagName('img');
+    function imageHeight(src){
+        const image = new Image();
+        image.src = src;
+        return {width:image.width,height:image.height , ratio:image.width/image.height};
+    }
+
+    
+
+    function fun(){
+        let heightTemp = 400; 
+        let scroll = window.innerWidth;
+        let maxsize = 0;
+        let countArr = [];
+        for(let i = 0 ; i < imgs.length ; ++i){
+            let res = imageHeight(imgs[i].src);
+            let width = res.ratio * heightTemp;
+            maxsize+=width;
+            countArr.push(i);
+            if(maxsize > scroll){
+                let widthScroll = 0;
+                countArr.forEach((item)=>{
+                    widthScroll+=imageHeight(imgs[item].src).width;
+                })
+                let heightScroll = (heightTemp/widthScroll)*scroll;
+                countArr.forEach((item)=>{
+                    imgs[item].style.height = `${heightScroll}px`;
+                    width1 = (imageHeight(imgs[item].src).width/400)*heightScroll
+                    imgs[item].style.width = `${width1-10}px`;
+                })
+                maxsize = 0;
+                countArr = [];
+            }
+        }
+    }
+
+    fun()
+
+    document.getElementsByTagName('body')[0].onresize =( )=>{fun()}
+</script>
+</html>
