@@ -13,6 +13,7 @@
         .main{
             display: flex;
             flex-wrap: wrap;
+            padding: 10px;
         }
     </style>
 </head>
@@ -66,11 +67,14 @@
                 countArr.forEach((item)=>{
                     widthScroll+=imageHeight(imgs[item].src).width;
                 })
-                let heightScroll = (heightTemp/widthScroll)*scroll;
-                countArr.forEach((item)=>{
+                let heightScroll = (heightTemp/widthScroll)*(scroll-(countArr.length-1)*10-15);
+                countArr.forEach((item , index)=>{
                     imgs[item].style.height = `${heightScroll}px`;
-                    width1 = (imageHeight(imgs[item].src).width/400)*heightScroll
+                    width1 = (imageHeight(imgs[item].src).width/heightTemp)*heightScroll
                     imgs[item].style.width = `${width1-10}px`;
+                    if(index !== countArr.length-1){
+                        imgs[item].style.marginRight = '2px'
+                    }
                 })
                 maxsize = 0;
                 countArr = [];
